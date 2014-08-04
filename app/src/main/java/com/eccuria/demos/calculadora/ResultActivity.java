@@ -1,10 +1,10 @@
 package com.eccuria.demos.calculadora;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class ResultActivity extends Activity {
 
@@ -12,11 +12,14 @@ public class ResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
         Bundle extras = getIntent().getExtras();
         double total = extras.getDouble(MainActivity.KEY_TOTAL_INCLUDING_TIP);
-        TextView txtResult = (TextView) findViewById(R.id.txtResult);
-        txtResult.setText("Total a pagar " + total);
+
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.resultFragment);
+        if (fragment != null && fragment.isInLayout()) {
+            ResultFragment resultFragment = (ResultFragment)fragment;
+            resultFragment.setResult(total);
+        }
     }
 
 
