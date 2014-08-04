@@ -1,7 +1,9 @@
 package com.eccuria.demos.calculadora;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -62,9 +64,18 @@ public class MainActivity extends Activity {
                 } else {
                     double total = Double.parseDouble(txtTotal);
                     total += total*tipPercentage;
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    intent.putExtra(KEY_TOTAL_INCLUDING_TIP, total);
-                    startActivity(intent);
+
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        Fragment fragment = getFragmentManager().findFragmentById(R.id.resultFragment);
+                        if (fragment != null && fragment.isInLayout()) {
+                            ResultFragment resultFragment = (ResultFragment)fragment;
+                            resultFragment.setResult(total);
+                        }
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                        intent.putExtra(KEY_TOTAL_INCLUDING_TIP, total);
+                        startActivity(intent);
+                    }
                 }
             } else {
                 Toast.makeText(MainActivity.this, R.string.err_option_not_selected, Toast.LENGTH_SHORT).show();
