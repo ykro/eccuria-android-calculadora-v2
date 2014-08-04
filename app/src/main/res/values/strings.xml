@@ -12,4 +12,6 @@
     <string name="title_activity_result">Resultado</string>
     <string name="err_editText_empty">Debe ingresar el total consumido</string>
     <string name="err_option_not_selected">Debe seleccionar alguna de las opciones de propina</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
